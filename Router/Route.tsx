@@ -7,55 +7,22 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { AntDesign } from "@expo/vector-icons";
 import Home from './../pages/home';
 import { SwipeListView } from 'react-native-swipe-list-view';
-import { NativeBaseProvider, Fab, Pressable, Flex, Icon, Box, Row, Spacer, FlatList, Avatar, HStack, VStack, Stack, Center, AspectRatio, ScrollView, Heading, Image, Input, Container } from 'native-base';
+import { NativeBaseProvider, Fab, Pressable, Flex, Icon, Button, Box, Spacer, FlatList, Avatar, HStack, VStack, Stack, AspectRatio, Badge, ScrollView, Heading, Image, Input, Container, MoreIcon } from 'native-base';
+import { FormControl } from 'native-base';
 
 
 function HomeScreen({ navigation }: { navigation: any }) {
     let [dado, Dados] = useState([]);
-    const data = [{
-        id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-        fullName: "Aafreen Khan",
-        timeStamp: "12:47 PM",
-        recentText: "Good Day!",
-        avatarUrl: "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-    }, {
-        id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
-        fullName: "Sujitha Mathur",
-        timeStamp: "11:11 PM",
-        recentText: "Cheer up, there!",
-        avatarUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyEaZqT3fHeNrPGcnjLLX1v_W4mvBlgpwxnA&usqp=CAU"
-    }, {
-        id: "58694a0f-3da1-471f-bd96-145571e29d72",
-        fullName: "Anci Barroco",
-        timeStamp: "6:22 PM",
-        recentText: "Good Day!",
-        avatarUrl: "https://miro.medium.com/max/1400/0*0fClPmIScV5pTLoE.jpg"
-    }, {
-        id: "68694a0f-3da1-431f-bd56-142371e29d72",
-        fullName: "Aniket Kumar",
-        timeStamp: "8:56 PM",
-        recentText: "All the best",
-        avatarUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSr01zI37DYuR8bMV5exWQBSw28C1v_71CAh8d7GP1mplcmTgQA6Q66Oo--QedAN1B4E1k&usqp=CAU"
-    }, {
-        id: "28694a0f-3da1-471f-bd96-142456e29d72",
-        fullName: "Kiara",
-        timeStamp: "12:47 PM",
-        recentText: "I will call today.",
-        avatarUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBwgu1A5zgPSvfE83nurkuzNEoXs9DMNr8Ww&usqp=CAU"
-    }];
     const API = "http://127.0.0.1:8000/";
     useEffect(() => {
 
         axios.get("http://127.0.0.1:8000/api/eventos")
-
             .then((resultadoAPI) => {
                 Dados(resultadoAPI.data)
             })
-
             .catch(() => {
                 console.log("API NAO ESTA A RETORNAR NADA PUTO!")
             })
-
     }, []);
     return (
         <NativeBaseProvider>
@@ -70,7 +37,7 @@ function HomeScreen({ navigation }: { navigation: any }) {
 
             <HStack>
                 <ScrollView>
-                    <FlatList showsHorizontalScrollIndicator={false} shadow="2" horizontal={true} data={dado} renderItem={({ item }) =>
+                    <FlatList showsHorizontalScrollIndicator={false} shadow="2" pl="4" horizontal={true} data={dado} renderItem={({ item }) =>
                         <Box borderBottomWidth="1" _dark={{ borderColor: "muted.50" }} borderColor="muted.800" pl={["0", "4"]} pr={["0", "5"]} py="2">
                             <HStack space={[2, 3]} justifyContent="space-between">
                                 <Avatar size="50px" source={{ uri: API + item.imagen }} />
@@ -81,74 +48,79 @@ function HomeScreen({ navigation }: { navigation: any }) {
                 </ScrollView>
             </HStack>
 
-            <Heading pl={4}>Eventos</Heading>
-            <ScrollView>
+            <Heading pl={4}>Novidades</Heading>
 
-                {/* {dado.map((pessoa, key) => { return (<></>) })}> */}
-                <VStack>
-
-
-                    <FlatList showsHorizontalScrollIndicator={false} horizontal={false} data={dado} renderItem={({ item }) =>
-                        <HStack space={3} justifyContent="center">
-                            <Box alignItems="center" py="2">
-                                <Box maxW="360" rounded="lg" overflow="hidden" borderColor="coolGray.200" borderWidth="1" _dark={{
-                                    borderColor: "coolGray.600",
-                                    backgroundColor: "gray.700"
-                                }} _web={{
-                                    shadow: 2,
-                                    borderWidth: 0
-                                }} _light={{
-                                    backgroundColor: "gray.50"
-                                }}>
-                                    <Box>
-                                        <AspectRatio w="100%" ratio={16 / 9}>
-                                            <Image source={{ uri: API + item.imagen }} alt="image" />
-                                        </AspectRatio>
-                                        <Center bg="violet.500" _dark={{
-                                            bg: "violet.400"
-                                        }} _text={{
-                                            color: "warmGray.50",
-                                            fontWeight: "700",
-                                            fontSize: "xs"
-                                        }} position="absolute" bottom="0" px="3" py="1.5">
-                                            {item.titulo}
-                                        </Center>
-                                    </Box>
-                                    <Stack w="900" p="4" space={3}>
+            <HStack space={3}>
+                <ScrollView>
+                    <FlatList showsHorizontalScrollIndicator={false} horizontal={true} data={dado} renderItem={({ item }) =>
+                        <Pressable>
+                            <HStack space={3} ml="3" py={3} >
+                                <Box flexDir="row" borderColor="coolGray.200" h="150" overflow="hidden" py="2" maxW="300" bg="gray.50" rounded="md" shadow="2">
+                                    <Image mt="1" ml="2" shadow="9"
+                                        borderRadius={10} borderColor="#22D3EE"
+                                        source={{ uri: API + item.imagen }}
+                                        alt="Alternate Text" size="xl" />
+                                    <Stack p="4" space={1}>
                                         <Stack space={2}>
                                             <Heading size="md" ml="-1">
                                                 {item.titulo}
                                             </Heading>
-                                            <Text fontSize="xs" _light={{
-                                                color: "violet.500"
-                                            }} _dark={{
-                                                color: "violet.400"
-                                            }} fontWeight="500" ml="-0.5" mt="-1">
-                                                The Silicon Valley of India.
+
+                                            <Text mt="2" fontSize="sm" color="coolGray.700">
+                                                {item.descricao}
                                             </Text>
                                         </Stack>
-                                        <Text fontWeight="400">
-                                            {item.descricao}
-                                        </Text>
-                                        <HStack alignItems="center" space={4} justifyContent="space-between">
+
+                                        <HStack justifyContent="space-between">
                                             <HStack alignItems="center">
                                                 <Text color="coolGray.600" _dark={{
                                                     color: "warmGray.200"
                                                 }} fontWeight="400">
-                                                    6 mins ago
+                                                    {item.dataInicio}
                                                 </Text>
                                             </HStack>
                                         </HStack>
+                                        <Stack base="column" md="row" space="4" flexDir="row">
+                                            <Button space="4" size="sm" bg="danger.800" leftIcon={<Icon as={Ionicons} name="heart-outline" size="sm" />}></Button>
+                                            <Button size="sm" bg="danger.800" leftIcon={<Icon as={Ionicons} name="heart-outline" size="sm" />}></Button>
+                                        </Stack>
+
                                     </Stack>
                                 </Box>
-                            </Box>
-                        </HStack>
+                            </HStack>
+                        </Pressable>
+
                     } keyExtractor={item => item.id} />
-                </VStack>
-            </ScrollView >
+                </ScrollView >
+            </HStack >
+
+            <Heading ml="4" py={2}>Eventos Recentes</Heading>
+            <FlatList numColumns={2} showsHorizontalScrollIndicator={false} horizontal={false} data={dado} renderItem={({ item }) =>
+
+                <HStack space="2" >
+                    {/* <Pressable maxW="96" isHovered isFocused isPressed  >
+
+                        <Box ml="2.5" bg="gray.50" mb="2.5" _light={{ bg: "coolGray.50" }}
+                            _dark={{ bg: "gray.700" }} size="189" borderColor="coolGray.200" shadow={2} rounded="md" _text={{ color: "black" }} safeArea>
+
+                            <AspectRatio w="100%" >
+                                <Image source={{ uri: API + item.imagen }} alt="image base" />
+                            </AspectRatio>
 
 
-            <Fab onPress={() => { navigation.navigate('Settings'); }} renderInPortal={false} shadow={2} right={8} size="sm" icon={<Icon color="white" as={AntDesign} name="plus" size="4" />} />
+                        </Box>
+                    </Pressable> */}
+                    <Box ml="2.5" bg="gray.50" mb="2.5" _light={{ bg: "coolGray.50" }}
+                        _dark={{ bg: "gray.700" }} size="189" borderColor="coolGray.200" shadow={2} rounded="md" _text={{ color: "black" }} safeArea>
+
+                    </Box>
+
+                </HStack>
+            } keyExtractor={item => item.id} />
+
+
+
+            < Fab onPress={() => { navigation.navigate('Settings'); }} renderInPortal={false} shadow={2} right={8} size="sm" icon={<Icon color="white" as={AntDesign} name="plus" size="4" />} />
         </NativeBaseProvider >
     );
 }
