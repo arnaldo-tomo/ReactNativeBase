@@ -61,7 +61,7 @@ function HomeScreen({ navigation }: { navigation: any }) {
         <NativeBaseProvider>
             <Container>
                 <VStack w="90%" space={5} py="2" alignSelf="center">
-                    <Heading >Rest API</Heading>
+                    <Heading >HomeEventos</Heading>
                     <Input placeholder="Search" variant="filled" width="130%" borderRadius="10" py="1" px="2" InputLeftElement={<Icon ml="2" size="4" color="gray.400" as={<Ionicons name="ios-search" />} />} />
                 </VStack>
             </Container>
@@ -81,10 +81,13 @@ function HomeScreen({ navigation }: { navigation: any }) {
                 </ScrollView>
             </HStack>
 
+            <Heading pl={4}>Eventos</Heading>
             <ScrollView>
 
                 {/* {dado.map((pessoa, key) => { return (<></>) })}> */}
                 <VStack>
+
+
                     <FlatList showsHorizontalScrollIndicator={false} horizontal={false} data={dado} renderItem={({ item }) =>
                         <HStack space={3} justifyContent="center">
                             <Box alignItems="center" py="2">
