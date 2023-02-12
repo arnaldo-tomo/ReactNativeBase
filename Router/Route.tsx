@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import axios from "axios";
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { AntDesign } from "@expo/vector-icons";
 import Home from './../pages/home';
-import { SwipeListView } from 'react-native-swipe-list-view';
-import { NativeBaseProvider, Fab, Pressable, Flex, Icon, Button, Box, Spacer, FlatList, Avatar, HStack, VStack, Stack, AspectRatio, Badge, ScrollView, Heading, Image, Input, Container, MoreIcon } from 'native-base';
-import { FormControl } from 'native-base';
+import {
+    NativeBaseProvider, Pressable, Icon, Button, Box, Spacer, FlatList, Avatar, HStack,
+    VStack, Stack, AspectRatio, Badge, ScrollView, Heading, Image, Input, Container,
+} from 'native-base';
 
 
 function HomeScreen({ navigation }: { navigation: any }) {
     let [dado, Dados] = useState([]);
+
     const API = "http://127.0.0.1:8000/";
     useEffect(() => {
 
@@ -27,10 +28,18 @@ function HomeScreen({ navigation }: { navigation: any }) {
     return (
         <NativeBaseProvider>
             <Container>
-                <VStack w="90%" space={5} py="2" alignSelf="center">
+                <HStack w="90%" space={5} py="2" alignSelf="center" flexDir="row" justifyContent="space-between" >
                     <Heading >HomeEventos</Heading>
+                    <Pressable pl="155">
+                        <Avatar size="10" source={{
+                            uri: "https://avatars.githubusercontent.com/u/73796385?v=4"
+                        }} ></Avatar>
+                    </Pressable>
+                </HStack>
+
+                <HStack w="90%" space={5} alignSelf="center" justifyContent="space-between"  >
                     <Input placeholder="Search" variant="filled" width="130%" borderRadius="10" py="1" px="2" InputLeftElement={<Icon ml="2" size="4" color="gray.400" as={<Ionicons name="ios-search" />} />} />
-                </VStack>
+                </HStack>
             </Container>
 
 
@@ -53,7 +62,7 @@ function HomeScreen({ navigation }: { navigation: any }) {
             <HStack space={3}>
                 <ScrollView>
                     <FlatList showsHorizontalScrollIndicator={false} horizontal={true} data={dado} renderItem={({ item }) =>
-                        <Pressable>
+                        <TouchableOpacity onPress={() => { console.log('POST', item.id) }}>
                             <HStack space={3} ml="3" py={3} >
                                 <Box flexDir="row" borderColor="coolGray.200" h="150" overflow="hidden" py="2" maxW="300" bg="gray.50" rounded="md" shadow="2">
                                     <Image mt="1" ml="2" shadow="9"
@@ -88,7 +97,7 @@ function HomeScreen({ navigation }: { navigation: any }) {
                                     </Stack>
                                 </Box>
                             </HStack>
-                        </Pressable>
+                        </TouchableOpacity>
 
                     } keyExtractor={item => item.id} />
                 </ScrollView >
@@ -97,30 +106,26 @@ function HomeScreen({ navigation }: { navigation: any }) {
             <Heading ml="4" py={2}>Eventos Recentes</Heading>
             <FlatList numColumns={2} showsHorizontalScrollIndicator={false} horizontal={false} data={dado} renderItem={({ item }) =>
 
-                <HStack space="2" >
-                    {/* <Pressable maxW="96" isHovered isFocused isPressed  >
+                <VStack space="2"  >
+                    <TouchableOpacity onPress={() => { console.log("detalhes clicado", item.id) }}>
 
                         <Box ml="2.5" bg="gray.50" mb="2.5" _light={{ bg: "coolGray.50" }}
                             _dark={{ bg: "gray.700" }} size="189" borderColor="coolGray.200" shadow={2} rounded="md" _text={{ color: "black" }} safeArea>
-
-                            <AspectRatio w="100%" >
+                            <AspectRatio h="100%" w="100%" >
                                 <Image source={{ uri: API + item.imagen }} alt="image base" />
                             </AspectRatio>
+                            <Badge shadow={4} h="12" _text={{ color: "white" }} variant="solid" >
+                                {item.titulo}
+                                {item.dataInicio}
 
-
+                            </Badge>
                         </Box>
-                    </Pressable> */}
-                    <Box ml="2.5" bg="gray.50" mb="2.5" _light={{ bg: "coolGray.50" }}
-                        _dark={{ bg: "gray.700" }} size="189" borderColor="coolGray.200" shadow={2} rounded="md" _text={{ color: "black" }} safeArea>
+                    </TouchableOpacity>
 
-                    </Box>
-
-                </HStack>
+                </VStack>
             } keyExtractor={item => item.id} />
 
 
-
-            < Fab onPress={() => { navigation.navigate('Settings'); }} renderInPortal={false} shadow={2} right={8} size="sm" icon={<Icon color="white" as={AntDesign} name="plus" size="4" />} />
         </NativeBaseProvider >
     );
 }
@@ -148,6 +153,8 @@ export default function Route() {
                                 : 'ios-server-outline';
                         } else if (route.name === 'Settings') {
                             iconName = focused ? 'ios-list' : 'ios-list-outline';
+                        } else if (route.name === 'book') {
+                            iconName = focused ? 'ios-list' : 'ios-library-outline';
                         }
 
                         // You can return any component that you like here!
@@ -158,6 +165,7 @@ export default function Route() {
                 })}
             >
                 <Tab.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
+                <Tab.Screen name="book" component={Home} options={{ headerShown: false }} />
                 <Tab.Screen name="Settings" component={Home} options={{ headerShown: false }} />
             </Tab.Navigator>
         </NavigationContainer>
