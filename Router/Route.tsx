@@ -11,14 +11,14 @@ import Home from '../pages/home';
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
-function MyStack() {
+function MinhasRotas() {
     return (
         <NavigationContainer>
-            <Stack.Navigator>
-                <Stack.Screen name="Inicio" component={TabsNavigation} />
+            <Stack.Navigator  >
+                <Stack.Screen name="Inicio" component={TabsNavigation} options={{ headerShown: false }} />
                 <Stack.Screen name="Sobre" component={Sobre} />
             </Stack.Navigator>
-        </NavigationContainer>
+        </NavigationContainer >
     );
 }
 
@@ -35,9 +35,13 @@ function TabsNavigation() {
                         ? 'ios-server-outline'
                         : 'ios-server-outline';
                 } else if (route.name === 'Settings') {
-                    iconName = focused ? 'ios-list' : 'ios-list-outline';
+                    iconName = focused ?
+                        'ios-list-outline' :
+                        'ios-list-outline';
                 } else if (route.name === 'book') {
-                    iconName = focused ? 'ios-list' : 'ios-library-outline';
+                    iconName = focused ?
+                        'ios-list'
+                        : 'ios-library-outline';
                 }
                 return <Ionicons name={iconName} size={size} color={color} />;
             },
@@ -46,7 +50,7 @@ function TabsNavigation() {
             tabBarInactiveTintColor: 'gray',
         })}
         >
-            <Tab.Screen name="Home" component={Inicio} options={{ headerShown: false }} />
+            <Tab.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
             <Tab.Screen name="book" component={Home} options={{ headerShown: false }} />
             <Tab.Screen name="Settings" component={Home} options={{ headerShown: false }} />
         </Tab.Navigator>
@@ -54,4 +58,4 @@ function TabsNavigation() {
     );
 }
 
-export { MyStack };
+export { MinhasRotas };
