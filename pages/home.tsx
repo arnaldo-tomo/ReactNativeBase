@@ -1,4 +1,4 @@
-import { React } from 'react';
+import React from 'react';
 import { NativeBaseProvider, Box, FormControl, Input, Fab, Icon, Center, Heading, VStack, Link, Button, HStack, Text } from "native-base";
 import { AntDesign } from "@expo/vector-icons";
 import { View, TextInput, Alert } from "react-native";
@@ -8,13 +8,12 @@ type FormData = {
     lastName: string;
 };
 
-export default function Home() {
+export default function Home(navigation) {
     const { register, setValue, handleSubmit, formState: { errors } } = useForm<FormData>();
     const onSubmit = handleSubmit(data => console.log(data));
 
     return (
         <NativeBaseProvider>
-
             <Box safeArea p="2" py="8" >
                 <Heading size="lg" fontWeight="600" color="coolGray.800" _dark={{
                     color: "warmGray.50"
