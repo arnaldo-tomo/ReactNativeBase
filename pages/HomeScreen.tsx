@@ -3,13 +3,14 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import axios from "axios";
 // import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Ionicons } from '@expo/vector-icons';
+import Detalhes from './Detalhes';
 
 import {
     NativeBaseProvider, Pressable, Icon, Button, Box, Spacer, FlatList, Avatar, HStack,
     VStack, Stack, AspectRatio, Badge, ScrollView, Heading, Image, Input, Container,
 } from 'native-base';
 
-export default function HomeScreen({ navigation }: { navigation: any }) {
+export default function HomeScreen({ navigation, route }) {
     const [dado, Dados] = useState([]);
     const API = "http://127.0.0.1:8000/";
     useEffect(() => {
@@ -24,6 +25,7 @@ export default function HomeScreen({ navigation }: { navigation: any }) {
     }, []);
 
     return (
+
         <NativeBaseProvider>
             <Container>
                 <HStack w="90%" space={5} py="2" alignSelf="center" flexDir="row" justifyContent="space-between" >
@@ -102,7 +104,7 @@ export default function HomeScreen({ navigation }: { navigation: any }) {
 
             <FlatList numColumns={2} showsHorizontalScrollIndicator={false} horizontal={false} data={dado} renderItem={({ item }) =>
                 <VStack space="2"  >
-                    <TouchableOpacity onPress={() => { navigation.navigate('book', item.id); }}>
+                    <TouchableOpacity onPress={() => { navigation.navigate('detalhes', item.titulo); }}>
                         <Box ml="2.5" bg="gray.50" mb="2.5" _light={{ bg: "coolGray.50" }}
                             _dark={{ bg: "gray.700" }} size="189" borderColor="coolGray.200" shadow={2} rounded="md" _text={{ color: "black" }} safeArea>
                             <AspectRatio h="100%" w="100%" >
