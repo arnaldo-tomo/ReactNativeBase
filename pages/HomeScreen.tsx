@@ -104,7 +104,7 @@ export default function HomeScreen({ navigation, route }) {
 
             <FlatList numColumns={2} showsHorizontalScrollIndicator={false} horizontal={false} data={dado} renderItem={({ item }) =>
                 <VStack space="2"  >
-                    <TouchableOpacity onPress={() => { navigation.navigate('detalhes', item.titulo); }}>
+                    <TouchableOpacity onPress={() => { navigation.navigate('detalhes', item); }}>
                         <Box ml="2.5" bg="gray.50" mb="2.5" _light={{ bg: "coolGray.50" }}
                             _dark={{ bg: "gray.700" }} size="189" borderColor="coolGray.200" shadow={2} rounded="md" _text={{ color: "black" }} safeArea>
                             <AspectRatio h="100%" w="100%" >
