@@ -1,8 +1,8 @@
 import React from "react";
-export default function Detalhes({ navigation, route }) {
+export default function Detalhes({ route }) {
     return (
         <>
-            Detalhes
+            Segunda Tela
         </>
     )
 }
