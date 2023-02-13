@@ -3,8 +3,6 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import axios from "axios";
 // import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Ionicons } from '@expo/vector-icons';
-import Detalhes from './Detalhes';
-
 import {
     NativeBaseProvider, Pressable, Icon, Button, Box, Spacer, FlatList, Avatar, HStack,
     VStack, Stack, AspectRatio, Badge, ScrollView, Heading, Image, Input, Container,
@@ -104,7 +102,7 @@ export default function HomeScreen({ navigation, route }) {
 
             <FlatList numColumns={2} showsHorizontalScrollIndicator={false} horizontal={false} data={dado} renderItem={({ item }) =>
                 <VStack space="2"  >
-                    <TouchableOpacity onPress={() => { navigation.navigate('detalhes', item); }}>
+                    <TouchableOpacity onPress={() => { navigation.navigate('Detalhes', item); }}>
                         <Box ml="2.5" bg="gray.50" mb="2.5" _light={{ bg: "coolGray.50" }}
                             _dark={{ bg: "gray.700" }} size="189" borderColor="coolGray.200" shadow={2} rounded="md" _text={{ color: "black" }} safeArea>
                             <AspectRatio h="100%" w="100%" >
