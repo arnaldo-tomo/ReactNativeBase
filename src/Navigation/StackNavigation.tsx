@@ -42,7 +42,7 @@ function TabNavigator() {
                 return <Ionicons name={iconName} size={size} color={color} />;
             },
 
-            tabBarActiveTintColor: '#cd077d',
+            tabBarActiveTintColor: 'blue',
             tabBarInactiveTintColor: 'gray',
         })}
         >
