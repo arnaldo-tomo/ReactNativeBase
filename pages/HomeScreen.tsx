@@ -11,8 +11,10 @@ import {
 
 export default function HomeScreen({ navigation, route }) {
     const { isOpen, onOpen, onClose } = useDisclose();
+
     const [dado, Dados] = useState([]);
     const API = "http://127.0.0.1:8000/";
+
     useEffect(() => {
 
         axios.get("http://127.0.0.1:8000/api/eventos")
