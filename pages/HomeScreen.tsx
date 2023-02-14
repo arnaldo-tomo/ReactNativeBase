@@ -5,10 +5,12 @@ import axios from "axios";
 import { Ionicons } from '@expo/vector-icons';
 import {
     NativeBaseProvider, Pressable, Icon, Button, Box, Spacer, FlatList, Avatar, HStack,
-    VStack, Stack, AspectRatio, Badge, ScrollView, Heading, Image, Input, Container,
+    VStack, Stack, AspectRatio, Badge, ScrollView, Actionsheet, Center, Heading, Image, Input, Container, useDisclose, Flex
 } from 'native-base';
 
+
 export default function HomeScreen({ navigation, route }) {
+    const { isOpen, onOpen, onClose } = useDisclose();
     const [dado, Dados] = useState([]);
     const API = "http://127.0.0.1:8000/";
     useEffect(() => {
@@ -25,19 +27,29 @@ export default function HomeScreen({ navigation, route }) {
     return (
 
         <NativeBaseProvider>
-            <Container>
-                <HStack w="90%" space={5} py="2" alignSelf="center" flexDir="row" justifyContent="space-between" >
-                    <Heading >HomeEventos</Heading>
-                    <Pressable pl="155">
-                        <Avatar size="10" source={{
-                            uri: "https://avatars.githubusercontent.com/u/73796385?v=4"
-                        }} ></Avatar>
-                    </Pressable>
-                </HStack>
+            <VStack w="100%" space={5} maxW='full'>
 
-                <HStack w="90%" space={5} alignSelf="center" justifyContent="space-between"  >
+                <Box ml={2} mr={2} >
+
+                    <Stack direction="row" mb="2.5" mt="1.5" space={3}>
+
+                        <Heading color="primary.900" fontSize={18} fontFamily='Roboto'>HomeEventos</Heading>
+
+                        <Flex mr={3} mb="2.5" mt="1.5" style={{ position: 'absolute', top: -20, right: -4 }}>
+                            <Box ml={5}>
+                                <Icon onPress={onOpen} as={Ionicons} name="filter-sharp" size={7} mt={3} />
+                            </Box>
+                        </Flex>
+
+                    </Stack>
+                </Box>
+
+            </VStack>
+            <Container>
+                <VStack w="100%" space={5} maxW='full'>
                     <Input placeholder="Search" variant="filled" width="130%" borderRadius="10" py="1" px="2" InputLeftElement={<Icon ml="2" size="4" color="gray.400" as={<Ionicons name="ios-search" />} />} />
-                </HStack>
+
+                </VStack>
             </Container>
 
 
@@ -117,6 +129,8 @@ export default function HomeScreen({ navigation, route }) {
                 </VStack>
             } keyExtractor={item => item.id} />
 
+
         </NativeBaseProvider >
     );
 }
+
