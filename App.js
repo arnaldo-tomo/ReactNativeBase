@@ -1,10 +1,11 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { MainStack } from "./src/Navigation/StackNavigation";
-import { MyStack } from "./Router/Route";
+import TabsNavigation from "./Router/Route";
 export default function App() {
   return (
-    <MainStack />
+    // <MainStack />
+    <TabsNavigation />
   );
 }
 
