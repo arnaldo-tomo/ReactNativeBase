@@ -9,8 +9,8 @@ import { Ionicons } from '@expo/vector-icons';
 import { NavigationContainer } from "@react-navigation/native";
 
 
+const Stack = createNativeStackNavigator();
 function MainStack() {
-    const Stack = createNativeStackNavigator();
     return (
         <NavigationContainer>
             <Stack.Navigator>
@@ -23,8 +23,8 @@ function MainStack() {
 }
 
 
+const Tab = createBottomTabNavigator();
 function TabNavigator() {
-    const Tab = createBottomTabNavigator();
     return (
         <Tab.Navigator screenOptions={({ route }) => ({
             tabBarIcon: ({ focused, color, size }) => {
