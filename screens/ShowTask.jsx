@@ -1,20 +1,35 @@
 import { React } from 'react';
 import { AntDesign } from "@expo/vector-icons";
-import { NativeBaseProvider, Fab, Icon, HStack, Box, Spacer, Text, ScrollView, Heading, Avatar, VStack, FlatList } from 'native-base';
+import { NativeBaseProvider, Fab, Icon, HStack, Box, Spacer, Text, ScrollView, Heading, Avatar, VStack, FlatList, Button } from 'native-base';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-export default function ShowTask() {
+import { TouchableOpacity } from 'react-native-gesture-handler';
+export default function ShowTask({ navigation }) {
 
     const [task, taskse] = useState([]);
 
     useEffect(() => {
-        axios.get("http://127.0.0.1:8000/api/todos")
+
+        axios.get("http://reactjs-front.com/BackEnd-Laravel/public/api/todos")
             .then((response) => {
                 taskse(response.data);
-                console.log(response);
             })
-
     }, []);
+
+
+    function apagar(id) {
+        axios.post(`http://reactjs-front.com/BackEnd-Laravel/public/api/${id}`)
+            .then(() => {
+                navigation.navigate('Show');
+                // console.log('esse gajo foi elimi multiTanes nado  digitalhost ');
+
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+
+
     return (
         <NativeBaseProvider>
             <ScrollView>
@@ -25,9 +40,6 @@ export default function ShowTask() {
                         borderColor: "muted.50"
                     }} borderColor="muted.800" pl={["0", "4"]} pr={["0", "5"]} py="2">
                             <HStack space={[2, 3]} justifyContent="space-between">
-                                <Avatar size="48px" source={{
-                                    uri: item.id
-                                }} />
                                 <VStack>
                                     <Text _dark={{
                                         color: "warmGray.50"
@@ -40,16 +52,19 @@ export default function ShowTask() {
                                         {item.email}
                                     </Text>
                                 </VStack>
-                                <Spacer />
-                                <Text fontSize="xs" _dark={{
-                                    color: "warmGray.50"
-                                }} color="coolGray.800" alignSelf="flex-start">
-                                    {item.timeStamp}
-                                </Text>
+                                <HStack space={2} mt="4" justifyContent="space-between" >
+                                    <TouchableOpacity >
+                                        <Button bgColor={'black'} height={5} >Edit</Button>
+                                    </TouchableOpacity>
+
+                                    <TouchableOpacity onPress={() => apagar(item.id)}>
+                                        <Button bgColor={'red.900'} height={5}>Delete</Button>
+                                    </TouchableOpacity>
+                                </HStack>
                             </HStack>
                         </Box>} keyExtractor={item => item.id} />
                 </Box>
-            </ScrollView>
-        </NativeBaseProvider>
+            </ScrollView >
+        </NativeBaseProvider >
     )
 }
