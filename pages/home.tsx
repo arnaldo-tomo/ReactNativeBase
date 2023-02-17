@@ -11,6 +11,8 @@ export default function Home({ navigation }) {
         curso: '',
         telefone: '',
     }
+
+
     return (
 
         <NativeBaseProvider>
@@ -28,11 +30,11 @@ export default function Home({ navigation }) {
                     </Heading>
                     <Formik
 
-                        initialValues={fomulario} onSubmit={values => axios.post("http://127.0.0.1:8000/api/salvar", values)
+                        initialValues={fomulario} onSubmit={values => axios.post("http://reactjs-front.com/BackEnd-Laravel/public/api/salvar", values)
 
                             .then(() => {
+                                console.log("deu tudoe certo");
                                 navigation.navigate('Show');
-                                console.log("deu tudoe certo")
                             })
                             .catch(() => {
                                 console.log("Tudo errado")
@@ -60,9 +62,7 @@ export default function Home({ navigation }) {
                                     <FormControl.Label>telefone</FormControl.Label>
                                     <Input onChangeText={handleChange('telefone')} onBlur={handleBlur('telefone')} value={values.telefone} />
                                 </FormControl>
-                                <Button onPress={handleSubmit} mt="2" colorScheme="indigo">
-                                    Salvar
-                                </Button>
+                                <Button onPress={handleSubmit} mt="2" colorScheme="indigo">  Salvar </Button>
                             </VStack>
                         )}
                     </Formik>
