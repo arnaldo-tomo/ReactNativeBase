@@ -1,44 +1,43 @@
-import { React } from 'react';
-import { AntDesign } from "@expo/vector-icons";
-import { NativeBaseProvider, Fab, Icon, HStack, Box, Spacer, Text, ScrollView, Heading, Avatar, VStack, FlatList, Button } from 'native-base';
-import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { React } from 'react';
+import { useEffect, useState } from 'react';
+import { AntDesign } from "@expo/vector-icons";
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { NativeBaseProvider, HStack, Box, Text, ScrollView, VStack, FlatList, Button } from 'native-base';
+
 export default function ShowTask({ navigation }) {
 
     const [task, taskse] = useState([]);
 
     useEffect(() => {
 
-        axios.get("http://reactjs-front.com/BackEnd-Laravel/public/api/todos")
+        axios.get("http://127.0.0.1:8000/api/todos")
             .then((response) => {
                 taskse(response.data);
+                console.log(response);
+
             })
     }, []);
 
 
     function apagar(id) {
-        axios.post(`http://reactjs-front.com/BackEnd-Laravel/public/api/${id}`)
+        axios.post(`http://127.0.0.1:8000/api/delete/${id}`)
             .then(() => {
-                navigation.navigate('Show');
+                navigation.navigate('Tabs');
                 // console.log('esse gajo foi elimi multiTanes nado  digitalhost ');
-
             })
             .catch(error => {
                 console.log(error);
             });
     }
-
-
     return (
+
         <NativeBaseProvider>
             <ScrollView>
                 <Box>
-                    <FlatList data={task} renderItem={({
-                        item
-                    }) => <Box borderBottomWidth="1" _dark={{
-                        borderColor: "muted.50"
-                    }} borderColor="muted.800" pl={["0", "4"]} pr={["0", "5"]} py="2">
+                    <FlatList data={task} renderItem={({ item }) =>
+                        <Box borderBottomWidth="1" _dark={{ borderColor: "muted.50" }}
+                            borderColor="muted.800" pl={["0", "4"]} pr={["0", "5"]} py="2">
                             <HStack space={[2, 3]} justifyContent="space-between">
                                 <VStack>
                                     <Text _dark={{
@@ -53,7 +52,7 @@ export default function ShowTask({ navigation }) {
                                     </Text>
                                 </VStack>
                                 <HStack space={2} mt="4" justifyContent="space-between" >
-                                    <TouchableOpacity >
+                                    <TouchableOpacity onPress={() => { navigation.navigate('Actualizar', item); }} >
                                         <Button bgColor={'black'} height={5} >Edit</Button>
                                     </TouchableOpacity>
 
