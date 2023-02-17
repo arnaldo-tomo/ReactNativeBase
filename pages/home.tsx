@@ -30,7 +30,7 @@ export default function Home({ navigation }) {
                     </Heading>
                     <Formik
 
-                        initialValues={fomulario} onSubmit={values => axios.post("http://reactjs-front.com/BackEnd-Laravel/public/api/salvar", values)
+                        initialValues={fomulario} onSubmit={values => axios.post("http://127.0.0.1:8000/api/salvar", values)
 
                             .then(() => {
                                 console.log("deu tudoe certo");
