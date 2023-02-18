@@ -48,7 +48,6 @@ export default function CreatTask({ route }) {
                                             Please try again later!
                                         </Text>
                                     </HStack>
-
                                 </HStack>
                                 <Box pl="6" _dark={{
                                     _text: {
