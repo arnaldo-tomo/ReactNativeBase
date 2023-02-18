@@ -2,6 +2,7 @@ import React from 'react';
 import { NativeBaseProvider, Box, FormControl, Input, Center, Icon, Stack, Heading, VStack, Link, Button, HStack, Text } from "native-base";
 import { Formik } from 'formik';
 import axios from 'axios';
+import ShowTask from '../screens/ShowTask';
 
 export default function Home({ navigation }) {
 
