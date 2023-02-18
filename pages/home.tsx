@@ -34,11 +34,11 @@ export default function Home({ navigation }) {
                         initialValues={fomulario} onSubmit={values => axios.post("http://127.0.0.1:8000/api/salvar", values)
 
                             .then(() => {
-                                console.log("deu tudoe certo");
+                                console.log("TUDO CERTO....");
                                 navigation.navigate('Show');
                             })
                             .catch(() => {
-                                console.log("Tudo errado")
+                                console.log("TUDO ERRADO..")
                             })
                         }
                     >
