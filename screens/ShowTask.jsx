@@ -6,7 +6,8 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { NativeBaseProvider, HStack, Box, Text, ScrollView, VStack, FlatList, Button } from 'native-base';
 
 export default function ShowTask({ navigation, route }) {
-
+    const [show, setShow] = React.useState(false);
+    const [errorMessage, setErrorMessage] = useState([]);
     const [task, taskse] = useState([]);
 
     useEffect(() => {
