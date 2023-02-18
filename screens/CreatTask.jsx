@@ -63,7 +63,7 @@ export default function CreatTask({ route }) {
 
                     <Formik
 
-                        initialValues={fomulario} onSubmit={values => axios.post("http://127.0.0.1:8000/api/update2", values)
+                        initialValues={fomulario} onSubmit={values => axios.post("http://127.0.0.1:8000/api/update", values)
 
                             .then(() => {
                                 navigation.navigate('Tabs',);
