@@ -8,7 +8,8 @@ import { View, Text, RefreshControl } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { NativeBaseProvider, HStack, Box, ScrollView, VStack, FlatList, Button, Collapse, Alert, Spinner, Heading } from 'native-base';
 
-export default function ShowTask({ navigation, route }) {
+export default function ShowTask({ navigation }) {
+
     const [show, setShow] = React.useState(false);
     const [errorMessage, setErrorMessage] = useState([]);
     const [data, setData] = useState();
@@ -20,43 +21,42 @@ export default function ShowTask({ navigation, route }) {
     function fetchData() {
 
         axios.get('http://127.0.0.1:8000/api/todos')
-
             .then((response) => {
                 setData(response.data)
             })
-
-            .catch(() => {
-
+            .catch((error) => {
+                console.log(error.response.data.message)
             })
-    };
+    }
+
 
     function apagar(id) {
 
         axios.post(`http://127.0.0.1:8000/api/delete/${id}`)
-
             .then((response) => {
                 fetchData();
                 setShow(true);
                 console.log('Eliminado', id);
             })
-            .catch(() => {
-
+            .catch((error) => {
+                console.log(error.response.data.message)
             })
     }
 
-    if (!data) {
+    if (data == 0) {
         return (
             <NativeBaseProvider>
-                <HStack space={4} paddingTop="500" justifyContent="center" alignItems="center">
+                <HStack space={4} paddingTop="400" justifyContent="center" alignItems="center">
                     <Spinner color="warning.500" size="lg" />
                     <Heading color="warning.500" fontSize="md">
-                        Carregando...
+                        Procurando dados...
                     </Heading>
                 </HStack>
             </NativeBaseProvider>
         )
 
     }
+
     return (
 
         <NativeBaseProvider>
@@ -85,11 +85,8 @@ export default function ShowTask({ navigation, route }) {
                 </Alert>
             </Collapse>
             {/* Fim da alerta */}
-            <ScrollView
-            >
-
+            <ScrollView>
                 <Box>
-
                     <FlatList data={data} renderItem={({ item }) =>
 
                         <Box borderBottomWidth="1" _dark={{ borderColor: "muted.50" }}
@@ -121,5 +118,8 @@ export default function ShowTask({ navigation, route }) {
                 </Box>
             </ScrollView >
         </NativeBaseProvider >
+
+
     )
 }
+export { fetchData };
