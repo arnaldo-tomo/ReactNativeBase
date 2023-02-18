@@ -5,7 +5,7 @@ import { AntDesign } from "@expo/vector-icons";
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { NativeBaseProvider, HStack, Box, Text, ScrollView, VStack, FlatList, Button } from 'native-base';
 
-export default function ShowTask({ navigation }) {
+export default function ShowTask({ navigation, route }) {
 
     const [task, taskse] = useState([]);
 
@@ -22,13 +22,10 @@ export default function ShowTask({ navigation }) {
 
     function apagar(id) {
         axios.post(`http://127.0.0.1:8000/api/delete/${id}`)
-            .then(() => {
-                navigation.navigate('Tabs');
-                // console.log('esse gajo foi elimi multiTanes nado  digitalhost ');
+            .then((response) => {
+                navigation.navigate('Show');
+                console.log('esse gajo foi elimi multiTanes nado  digitalhost ', response);
             })
-            .catch(error => {
-                console.log(error);
-            });
     }
     return (
 
@@ -38,7 +35,7 @@ export default function ShowTask({ navigation }) {
                     <FlatList data={task} renderItem={({ item }) =>
                         <Box borderBottomWidth="1" _dark={{ borderColor: "muted.50" }}
                             borderColor="muted.800" pl={["0", "4"]} pr={["0", "5"]} py="2">
-                            <HStack space={[2, 3]} justifyContent="space-between">
+                            <HStack space={[4, 4]} marginX="4" justifyContent="space-between">
                                 <VStack>
                                     <Text _dark={{
                                         color: "warmGray.50"
@@ -52,7 +49,7 @@ export default function ShowTask({ navigation }) {
                                     </Text>
                                 </VStack>
                                 <HStack space={2} mt="4" justifyContent="space-between" >
-                                    <TouchableOpacity onPress={() => { navigation.navigate('Actualizar', item); }} >
+                                    <TouchableOpacity onPress={() => navigation.navigate('Criar', item)} >
                                         <Button bgColor={'black'} height={5} >Edit</Button>
                                     </TouchableOpacity>
 
