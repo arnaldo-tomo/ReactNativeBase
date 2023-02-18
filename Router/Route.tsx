@@ -6,6 +6,8 @@ import { Ionicons } from '@expo/vector-icons';
 import ShowTask from '../screens/ShowTask';
 import Home from '../pages/home';
 import Actualizar from '../screens/Actualizar';
+import CreatTask from '../screens/CreatTask';
+import LoginScrewm from '../screens/LoginScreem';
 
 const Stack = createNativeStackNavigator();
 function Primeiro() {
@@ -13,7 +15,9 @@ function Primeiro() {
         <NavigationContainer>
             <Stack.Navigator>
                 <Stack.Screen name="Tabs" component={TabsNavigation} options={{ headerShown: false }} />
+                <Stack.Screen name="Login" component={LoginScrewm} options={{ headerShown: false }} />
                 <Stack.Screen name="Actualizar" component={Actualizar} />
+                <Stack.Screen name="Criar" component={CreatTask} options={{ title: 'Actuliazar dados' }} />
             </Stack.Navigator>
         </NavigationContainer>
     );
