@@ -7,7 +7,7 @@ import { AntDesign } from "@expo/vector-icons";
 import { View, Text, RefreshControl } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { NativeBaseProvider, HStack, Box, ScrollView, VStack, FlatList, Button, Collapse, Alert, Spinner, Heading } from 'native-base';
-
+import { Header } from '@react-navigation/stack';
 export default function ShowTask({ navigation }) {
 
     const [show, setShow] = React.useState(false);
@@ -16,6 +16,7 @@ export default function ShowTask({ navigation }) {
 
     useEffect(() => {
         fetchData();
+        console.log('USEEFFECT')
     }, []);
 
     function fetchData() {
@@ -122,4 +123,3 @@ export default function ShowTask({ navigation }) {
 
     )
 }
-export { fetchData };
