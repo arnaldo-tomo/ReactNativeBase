@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { NativeBaseProvider, Box, FormControl, Input, Center, Icon, Stack, Heading, VStack, Link, Button, HStack, Text } from "native-base";
 import { Formik } from 'formik';
 import axios from 'axios';
@@ -32,7 +32,6 @@ export default function Home({ navigation }) {
                     <Formik
 
                         initialValues={fomulario} onSubmit={values => axios.post("http://127.0.0.1:8000/api/salvar", values)
-
                             .then(() => {
                                 console.log("TUDO CERTO....");
                                 navigation.navigate('Show');
