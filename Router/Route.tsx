@@ -8,6 +8,7 @@ import Home from '../pages/home';
 import Actualizar from '../screens/Actualizar';
 import CreatTask from '../screens/CreatTask';
 import LoginScrewm from '../screens/LoginScreem';
+import { TouchableOpacity } from 'react-native';
 
 const Stack = createNativeStackNavigator();
 function Primeiro() {
@@ -45,7 +46,14 @@ function TabsNavigation() {
             tabBarInactiveTintColor: 'black',
         })}
         >
-            <Tab.Screen name="Show" component={ShowTask} />
+            <Tab.Screen name="Show" component={ShowTask} options={{
+                title: 'Home', headerRight: () => (
+                    <TouchableOpacity style={{ marginRight: 15 }} >
+                        <Ionicons name='home' size={24} />
+                    </TouchableOpacity>
+                )
+
+            }} />
             <Tab.Screen name="CreatTask" component={Home} />
         </Tab.Navigator>
 
